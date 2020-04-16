@@ -1,5 +1,5 @@
 #Listing 4-46 Decorators in Coroutines
-#@coroutine_next
+@coroutine_next #FIXME: not working, see https://github.com/jython/book/issues/19
 def co_example(name):
     print('Entering coroutine %s' % (name))
     my_text = []
@@ -9,7 +9,7 @@ def co_example(name):
         print(my_text)
 
 ex2 = co_example("example2")
-ex2.next()
+#ex2.next()
 ex2.send("one")
 ex2.send("two")
 ex2.close()
