@@ -2,3 +2,5 @@
 *.class
 PyCon2020_HandsOnPython/env
 __pycache__/
+.coverage
+htmlcov/

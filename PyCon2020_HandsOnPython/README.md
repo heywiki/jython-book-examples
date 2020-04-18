@@ -183,5 +183,192 @@ debugging
 >>> dir()
 >>> covid.read_csv('covid.csv')
 
-rubberduck debugging -> explaining to someone else
-print debugging -> using print(statements)
+1. rubberduck debugging -> explaining to someone else
+2. print debugging -> using print(statements)
+
+Alternative way of looping with index
+
+for line in fin:
+for i, line in enumerate(fin):
+
+def read_csv(fname):
+    with open(fname, encoding='utf8') as fin:
+        rows = []
+        for i, line in enumerate(fin):
+            values = line.strip().split(',')
+            if i == 0:
+                headers = values
+            else:
+                rows.append(dict(zip(headers, values)))
+    return rows
+
+
+>>> import covid
+>>> res = covid.read_csv('covid.csv')
+>>> len(res)
+2284
+
+3. import pdb; pdb.set_trace()  -> recent breakpoint
+h -> all the commands
+l -> list
+fname -> inspects fname var
+n -> got to next line
+h n -> help on n
+c  -> continue running
+q -> quit
+
+
+== T 1:04:28
+filter, type conversion
+
+>>> ut_res = []
+>>> len(ut_res)
+0
+>>> res = covid.read_csv('covid.csv')
+>>> for row in res:
+...     if row['state'] == 'UT':
+...             ut_res.append(row)
+...
+>>> len(ut_res)
+40
+>>> ut_res[0]
+{'date': '20200415', 'state': 'UT', 'positive': '2542', 'negative': '45072', 'pending': '', 'hospitalizedCurrently': '', 'hospitalizedCumulative': '221', 'inIcuCurrently': '', 'inIc
+uCumulative': '', 'onVentilatorCurrently': '', 'onVentilatorCumulative': '', 'recovered': '218', 'hash': 'f1de11bfb56f8f39c4440f1921363b342a5826da', 'dateChecked': '2020-04-15T20:00
+:00Z', 'death': '20', 'hospitalized': '221', 'total': '47614', 'totalTestResults': '47614', 'posNeg': '47614', 'fips': '49', 'deathIncrease': '1', 'hospitalizedIncrease': '8', 'nega
+tiveIncrease': '1008', 'positiveIncrease': '130', 'totalTestResultsIncrease': '1138'}
+
+type conversion
+
+for j, val in enumerate(values):
+    val = int(val)
+    values[j] = val
+
+type conversion error catch
+
+try:
+    val = int(val)
+except ValueError:
+    pass
+values[j] = val
+
+
+discussion about common indent errors...
+
+create filter method
+
+def filter(rows, state):
+    res = []
+    for row in rows:
+        if row['state'] == state:
+            res.append(row)
+    return res
+
+
+test filter method
+
+import covid
+res = covid.read_csv('covid.csv')
+res = covid.filter(res, 'UT')
+
+print(len(res))
+print(res[0])
+
+pos = []
+for row in res:
+    pos.append(row['positive'])
+
+print(pos)
+print(pos.reverse())
+print(pos)
+
+
+== T 1:21:02
+
+sorting by date
+
+
+def get_date(row):
+    return row['date']
+
+ut_sorted = sorted(res_ut, key=get_date)
+print(ut_sorted[-1])
+
+
+What does -1 mean?
+print(ut_sorted[-1])
+print(ut_sorted[len(ut_sorted)-1]]) #same as -1!!
+
+create it as a function
+
+
+def sortby(rows, col_name):
+    def get_col_name(row):
+        return row[col_name]
+    return sorted(rows, key=get_col_name)
+
+
+== T 1:28:09
+
+Pot with library
+
+https://matplotlib.org/gallery/index.html
+
+source env/Scripts/activate
+pip install matplotlib
+
+pip installs python -> see python book
+
+
+import matplotlib.pyplot as plt
+
+
+def get_value(rows, col_name):
+    res = []
+    for row in rows:
+        res.append(row[col_name])
+    return res
+
+fix, ax = plt.subplots()
+ax.plot(covid.get_value(ut_res, 'positive'))
+ax.plot(covid.get_value(ut_res, 'death'))
+ax.plot(covid.get_value(ut_res, 'hospitalized'))
+plt.show()
+
+
+== T 1:40:12
+unit tests
+
+Testing: using build in unittest, portet from java
+in 2000, so since python 2
+
+see test_covid.py for source
+
+don't forget to import covid.py
+
+Looking in 3 places
+local namespace -> method: self
+global namespace -> imports, and the Class Itself
+build in namespace -> print, etc...
+
+import covid
+
+dir(covid)
+
+common mistakes
+1. not imprting
+2. not save in same dir or false name
+
+
+== TS 1:51:21
+code coverage
+
+https://pypi.org/   -> package index
+
+
+coverage run test_covid.py   -> runs tests an creates a .coverage
+coverage html                -> creates htmlcov
+
+
+== TS 1:57:50
+
+command line application
