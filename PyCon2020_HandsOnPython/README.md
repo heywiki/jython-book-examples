@@ -372,3 +372,15 @@ coverage html                -> creates htmlcov
 == TS 1:57:50
 
 command line application
+
+create function to plot and save as png
+
+def plot_state(state, csvname, plotname):
+    res = read_csv(csvname)
+    state_res = filter(res, state)
+    state_res = sortby(state_res, 'date')
+    fig, ax = plt.subplots()
+    ax.plot(get_value(state_res, 'positive'))
+    ax.plot(get_value(state_res, 'death'))
+    ax.plot(get_value(state_res, 'hospitalized'))
+    fig.savefig(plotname)

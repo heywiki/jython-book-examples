@@ -2,3 +2,5 @@
 #since i am using atom with integrated git in platform-ide-terminal plugin
 import covid
 import matplotlib.pyplot as plt
+
+covid.plot_state('NY', 'covid.csv', 'ny.png')

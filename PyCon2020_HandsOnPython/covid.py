@@ -1,4 +1,5 @@
 import urllib.request as req
+import matplotlib.pyplot as plt
 
 def fetch_url(url, fname):
     '''
@@ -46,11 +47,11 @@ def get_value(rows, col_name):
     return res
 
 def plot_state(state, csvname, plotname):
-    res = covid.read_csv(csvname)
-    state_res = covid.filter(res, state)
-    state_res = covid.sortby(state_res, 'date')
-    fix, ax = plt.subplots()
-    ax.plot(covid.get_value(state_res, 'positive'))
-    ax.plot(covid.get_value(state_res, 'death'))
-    ax.plot(covid.get_value(state_res, 'hospitalized'))
+    res = read_csv(csvname)
+    state_res = filter(res, state)
+    state_res = sortby(state_res, 'date')
+    fig, ax = plt.subplots()
+    ax.plot(get_value(state_res, 'positive'))
+    ax.plot(get_value(state_res, 'death'))
+    ax.plot(get_value(state_res, 'hospitalized'))
     fig.savefig(plotname)
