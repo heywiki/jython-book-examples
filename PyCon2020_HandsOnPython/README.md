@@ -427,3 +427,16 @@ optional arguments:
 now run
 
 python covid.py -s UT -c covid.csv -o utah.png
+
+== TS 2:12.15
+
+final notes
+
+- use repl
+- test, coverage
+- next steps? find project that inspires you and work on
+Contact Matt on Twitter __mharrison__, LinkedIn
+
+https://twitter.com/__mharrison__
+
+Thank you Matt Harrison!
