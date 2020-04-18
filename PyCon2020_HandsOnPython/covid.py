@@ -1,5 +1,9 @@
-import urllib.request as req
 import matplotlib.pyplot as plt
+
+import argparse
+import sys
+import urllib.request as req
+
 
 def fetch_url(url, fname):
     '''
@@ -55,3 +59,17 @@ def plot_state(state, csvname, plotname):
     ax.plot(get_value(state_res, 'death'))
     ax.plot(get_value(state_res, 'hospitalized'))
     fig.savefig(plotname)
+
+def main(args):
+    ap = argparse.ArgumentParser()
+    ap.add_argument('-s', '--state')
+    ap.add_argument('-c', '--csv')
+    ap.add_argument('-o', '--output',
+                    help='PNG filename')
+
+    opt = ap.parse_args(args)
+    if opt.state:
+        plot_state(opt.state, opt.csv, opt.output)
+
+if __name__ == '__main__':
+    main(sys.argv[1:]) #includes python file name that runs, so slice

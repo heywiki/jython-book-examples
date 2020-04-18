@@ -384,3 +384,46 @@ def plot_state(state, csvname, plotname):
     ax.plot(get_value(state_res, 'death'))
     ax.plot(get_value(state_res, 'hospitalized'))
     fig.savefig(plotname)
+
+many different options
+
+https://docs.python.org/3/library/argparse.html -> Ref Doc, hardly examples or tutorials
+https://pymotw.com/3/argparse/ -> blog that was turned into a book:
+Pyhton 3 Standard Libary by example
+
+
+if __name__ == '__main__'
+    main(sys.argv[1:]) #includes python file name that runs, so slice
+
+lot of people like to factor this out into a main function
+
+def main(args):
+    ap = argparse.ArgumentParser()
+    ap.add_argument('-s', '--state')
+    ap.add_argument('-c', '--csv')
+    ap.add_argument('-o', '--output',
+                    help='PNG filename')
+
+    opt = ap.parse_args(args)
+    if opt.state:
+        plot_state(opt.state, opt.csv, opt.output)
+
+if __name__ == '__main__':
+    main(sys.argv[1:]) #includes python file name that runs, so slice
+
+
+this prints out
+$ python covid.py -h
+usage: covid.py [-h] [-s STATE] [-c CSV] [-o OUTPUT]
+
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s STATE, --state STATE
+  -c CSV, --csv CSV
+  -o OUTPUT, --output OUTPUT
+                        PNG filename
+
+now run
+
+python covid.py -s UT -c covid.csv -o utah.png
