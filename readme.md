@@ -9,3 +9,10 @@ Forked the book in the state where tested under
 https://github.com/heywiki/book, since there will
 be a new version soon that is closer to the paper edition
 , see https://github.com/jython/book/issues/17
+
+Participated in Tutorial: Matt Harrison - Hands-on Beginning Python
+PyCon 2020, see PyCon2020_HandsOnPython folder
+
+Investigated State of Jhyton 3, found
+
+https://github.com/jimbaker/talks/blob/master/state-of-jython-2020-lightning-talk.md
